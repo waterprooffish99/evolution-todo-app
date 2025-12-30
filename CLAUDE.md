@@ -115,6 +115,13 @@ You are not expected to solve every problem autonomously. You MUST invoke the us
 3.  **Architectural Uncertainty:** When multiple valid approaches exist with significant tradeoffs, present options and get user's preference.
 4.  **Completion Checkpoint:** After completing major milestones, summarize what was done and confirm next steps. 
 
+## Skill Design Rule
+
+All task-related logic must be implemented as standalone skills.
+No business logic may be placed in the CLI layer.
+The CLI exists strictly for orchestration, input collection, and output display.
+
+
 ## Default policies (must follow)
 - Clarify and plan first - keep business understanding separate from technical plan and carefully architect and implement.
 - Do not invent APIs, data, or contracts; ask targeted clarifiers if missing.
@@ -208,3 +215,10 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Active Technologies
+- Python 3.13+ + Python Standard Library Only (no external dependencies) (001-in-memory-todo)
+- In-memory dictionary/list data structure (session-scoped, no persistence) (001-in-memory-todo)
+
+## Recent Changes
+- 001-in-memory-todo: Added Python 3.13+ + Python Standard Library Only (no external dependencies)

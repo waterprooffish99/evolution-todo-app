@@ -1,55 +1,92 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+================================================================================
+SYNC IMPACT REPORT
+================================================================================
+Version change: N/A → 1.0.0 (new document)
+
+Modified Principles:
+  - N/A (new document)
+
+Added Sections:
+  - Phase I Purpose
+  - Core Principles (4 principles from user input)
+  - Phase I Scope (Explicit)
+  - Technical Guardrails
+  - Development Constraints
+  - Success Definition (Phase I)
+
+Removed Sections:
+  - N/A (new document)
+
+Templates Status:
+  - .specify/templates/plan.md ✅ No changes needed - Constitution Check section already references constitution
+  - .specify/templates/spec.md ✅ No changes needed - already aligned with spec-driven approach
+  - .specify/templates/tasks.md ✅ No changes needed - already flexible for any methodology
+  - .specify/templates/phr-template.prompt.md ✅ No changes needed
+
+Follow-up TODOs:
+  - None
+================================================================================
+-->
+
+# The Evolution of Todo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven First
+No implementation is generated without a written and refined specification.
+Specifications are the single source of truth.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Reusable Intelligence
+Core behaviors are implemented as well-defined, reusable functions ("skills").
+These skills must be simple, deterministic, and future-extensible.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Human-Readable Design
+The system must be understandable by beginners and AI systems alike.
+Clear naming, simple flows, and predictable behavior are mandatory.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Clean Phase Boundaries
+Phase I contains no web, database, agent, or AI logic.
+All decisions must remain valid when extended in later phases.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+## Phase I Scope (Explicit)
 
-### [PRINCIPLE_6_NAME]
+This phase **must support only** the following features:
+- Add a task (title and description)
+- View all tasks with completion status
+- Update an existing task
+- Delete a task by identifier
+- Mark a task as complete or incomplete
 
+No additional features are permitted in Phase I.
 
-[PRINCIPLE__DESCRIPTION]
+## Technical Guardrails
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- **Language**: Python 3.13+
+- **Runtime**: Console / CLI only
+- **Persistence**: In-memory data structures only
+- **Architecture**: Menu-driven, deterministic flow
+- **No file system usage**
+- **No external services or databases**
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Development Constraints
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- **No manual coding is allowed.**
+- All implementation must be generated via Claude Code based on refined specifications.
+- Specifications may be iterated until the generated output is correct.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Success Definition (Phase I)
+
+Phase I is successful when:
+- The console application works reliably
+- All required features are implemented
+- The codebase is clean and readable
+- The project is ready to evolve into Phase II without refactoring
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices during Phase I.
+Amendments require documentation of the change and rationale.
+All implementation work must verify compliance with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-29 | **Last Amended**: 2025-12-29
