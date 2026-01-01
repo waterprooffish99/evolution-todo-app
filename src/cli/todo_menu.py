@@ -22,6 +22,7 @@ from src.skills.task_skills import (
     DeleteTask,
     ToggleTaskStatus
 )
+from src.persistence import initialize_persistence, save_tasks
 
 
 def display_menu() -> None:
@@ -275,12 +276,11 @@ def handle_toggle_task(tasks: List[Task]) -> tuple[List[Task], bool]:
 def run_menu_loop() -> None:
     """Run the main menu loop.
 
-    This function initializes the in-memory state and processes
-    user input until they choose to exit.
+    This function initializes the in-memory state (loading from persistence)
+    and processes user input until they choose to exit.
     """
-    # Initialize in-memory state
-    tasks: List[Task] = []
-    next_id: int = 1
+    # Initialize persistence and load existing tasks
+    tasks, next_id = initialize_persistence()
 
     while True:
         # Display menu and get choice
@@ -291,18 +291,23 @@ def run_menu_loop() -> None:
         if choice == 1:
             # Add Task
             tasks, next_id = handle_add_task(tasks, next_id)
+            save_tasks(tasks)  # Persist immediately
         elif choice == 2:
             # View Tasks
             handle_view_tasks(tasks)
+            # No save needed (read-only)
         elif choice == 3:
             # Update Task
             tasks, _ = handle_update_task(tasks)
+            save_tasks(tasks)  # Persist immediately
         elif choice == 4:
             # Delete Task
             tasks, _ = handle_delete_task(tasks)
+            save_tasks(tasks)  # Persist immediately
         elif choice == 5:
             # Toggle Task Status
             tasks, _ = handle_toggle_task(tasks)
+            save_tasks(tasks)  # Persist immediately
         elif choice == 6:
             # Exit
             print("\nGoodbye!")

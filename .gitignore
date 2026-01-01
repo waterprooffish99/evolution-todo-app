@@ -47,3 +47,7 @@ htmlcov/
 
 # Logs
 *.log
+
+# User data (should not be committed)
+data/
+!data/.gitkeep

@@ -83,10 +83,31 @@ Phase I is successful when:
 - The codebase is clean and readable
 - The project is ready to evolve into Phase II without refactoring
 
+## Amendments
+
+### Amendment I: Persistence (Phase II)
+**Effective**: 2026-01-01
+
+**Principle**: All state changes must persist to a local JSON file immediately to ensure data integrity.
+
+**Rationale**: Phase II introduces persistent storage to preserve task data across application sessions. This amendment extends Phase I's in-memory model without breaking existing "skills" or architectural decisions.
+
+**Technical Changes**:
+- Data storage location: `data/todo_data.json`
+- Auto-loading of tasks on application start
+- Auto-saving on every Create, Update, Delete, or Toggle action
+- Error handling for corrupted or missing JSON files
+- Phase I skills remain the source of truth, now enhanced with persistence awareness
+
+**Constraints**:
+- File operations must be atomic to prevent data corruption
+- Backward compatibility with Phase I skill signatures must be maintained
+- No changes to console/CLI interface or user experience
+
 ## Governance
 
 This constitution supersedes all other development practices during Phase I.
 Amendments require documentation of the change and rationale.
 All implementation work must verify compliance with these principles.
 
-**Version**: 1.0.0 | **Ratified**: 2025-12-29 | **Last Amended**: 2025-12-29
+**Version**: 1.1.0 | **Ratified**: 2025-12-29 | **Last Amended**: 2026-01-01
