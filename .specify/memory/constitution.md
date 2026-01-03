@@ -85,29 +85,50 @@ Phase I is successful when:
 
 ## Amendments
 
-### Amendment I: Persistence (Phase II)
+### Amendment II: Full-Stack Web & Identity (Phase II)
 **Effective**: 2026-01-01
+**Supersedes**: Amendment I (local JSON persistence)
 
-**Principle**: All state changes must persist to a local JSON file immediately to ensure data integrity.
+**Principle**: The Evolution of Todo transitions to a full-stack web application with multi-user identity management and cloud-based persistence.
 
-**Rationale**: Phase II introduces persistent storage to preserve task data across application sessions. This amendment extends Phase I's in-memory model without breaking existing "skills" or architectural decisions.
+**The Identity Law (User Isolation)**:
+- Every task **MUST** be linked to a `user_id`
+- The Backend **MUST** verify the `Authorization: Bearer <JWT>` header using a shared `BETTER_AUTH_SECRET`
+- Every database query **MUST** be filtered by the authenticated `user_id`
+- **No user shall ever see another user's data** (strict tenant isolation)
+
+**Rationale**: Phase II evolves the console application into a production-ready web application with proper authentication, authorization, and multi-tenant data isolation. This amendment maintains Phase I's core skills while adapting them to modern web architecture.
+
+**Technical Stack**:
+- **Frontend**: Next.js 16+ (App Router)
+- **Backend**: Python FastAPI
+- **Database**: Neon Serverless PostgreSQL (using SQLModel ORM)
+- **Authentication**: Better Auth (Frontend) + JWT verification (Backend)
+- **API**: RESTful endpoints at `/api/{user_id}/tasks`
 
 **Technical Changes**:
-- Data storage location: `data/todo_data.json`
-- Auto-loading of tasks on application start
-- Auto-saving on every Create, Update, Delete, or Toggle action
-- Error handling for corrupted or missing JSON files
-- Phase I skills remain the source of truth, now enhanced with persistence awareness
+- Phase I skills adapted to use SQLModel instead of in-memory lists
+- All task operations require valid JWT authentication
+- Database queries filtered by authenticated user_id
+- RESTful API endpoints for CRUD operations
+- Completion toggle via PATCH endpoint
 
 **Constraints**:
-- File operations must be atomic to prevent data corruption
-- Backward compatibility with Phase I skill signatures must be maintained
-- No changes to console/CLI interface or user experience
+- Phase I skill logic must be preserved (business logic unchanged)
+- All endpoints must return 401 Unauthorized if JWT is missing or invalid
+- Database schema must enforce user_id foreign key constraints
+- Frontend must never expose other users' data
+
+**Security Requirements**:
+- JWT secret shared between Better Auth and FastAPI backend
+- HTTPS required in production
+- SQL injection prevention via SQLModel parameterized queries
+- CORS configured for Next.js frontend only
 
 ## Governance
 
-This constitution supersedes all other development practices during Phase I.
+This constitution supersedes all other development practices.
 Amendments require documentation of the change and rationale.
 All implementation work must verify compliance with these principles.
 
-**Version**: 1.1.0 | **Ratified**: 2025-12-29 | **Last Amended**: 2026-01-01
+**Version**: 2.0.0 | **Ratified**: 2025-12-29 | **Last Amended**: 2026-01-01
